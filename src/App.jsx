@@ -1,5 +1,6 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import AuthRoutes from "./routes/AuthRoutes";
+import UserRoutes from "./routes/UserRouter";
 import {persistor, store} from "../src/redux/Store/Store";
 import {PersistGate} from "redux-persist/lib/integration/react";
 import {Provider} from "react-redux";
@@ -12,6 +13,7 @@ function App() {
         <Toaster richColors position="bottom-right" />
         <Router>
           <Routes>
+            <Route path="/*" element={<UserRoutes />} />
             <Route path="auth/*" element={<AuthRoutes />} />
           </Routes>
         </Router>
