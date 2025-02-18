@@ -1,7 +1,7 @@
 import BackButton from "@/components/Buttons/BackButton";
-import { InputOTPControlled } from "@/components/Forms/OtpComponent"; 
+import {InputOTPControlled} from "@/components/Forms/OtpComponent";
 import SignInForm from "@/components/Forms/SignInForm";
-import { setUser } from "@/redux/Slices/AuthSlice"; 
+import {setUser} from "@/redux/Slices/AuthSlice";
 import instance from "@/utils/axios";
 import useToastNotification from "@/hooks/SonnerToast";
 import React, {useState} from "react";
@@ -49,9 +49,7 @@ const SignIn = () => {
           isActive: user.is_active || "",
           email: user.email || "",
           username: user.username || "",
-          phoneNumber: user.phone_number || "",
           accessToken: access || "",
-          dateOfBirth: user.date_of_birth || "",
           role: user.role || "",
         })
       );
