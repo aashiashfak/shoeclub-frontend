@@ -6,6 +6,8 @@ import {PersistGate} from "redux-persist/lib/integration/react";
 import {Provider} from "react-redux";
 import {Toaster} from "sonner";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import AdminRoutes from "./routes/AdminRoutes";
+import AuthRedirect from "./components/Protecters/AuthRedirect";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +20,15 @@ function App() {
           <Router>
             <Routes>
               <Route path="/*" element={<UserRoutes />} />
-              <Route path="auth/*" element={<AuthRoutes />} />
+              <Route
+                path="auth/*"
+                element={
+                  <AuthRedirect>
+                    <AuthRoutes />
+                  </AuthRedirect>
+                }
+              />
+              <Route path="admin/*" element={<AdminRoutes />} />
             </Routes>
           </Router>
         </QueryClientProvider>

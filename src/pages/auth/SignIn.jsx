@@ -5,7 +5,7 @@ import {setUser} from "@/redux/Slices/AuthSlice";
 import instance from "@/utils/axios";
 import useToastNotification from "@/hooks/SonnerToast";
 import React, {useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
 const SignIn = () => {
@@ -54,7 +54,6 @@ const SignIn = () => {
         })
       );
       showToast("User Logined Succussfully", "success");
-      navigate("/");
     } catch (error) {
       showToast(error.response?.data?.error, "error");
       if (error) {
