@@ -14,6 +14,11 @@ const AllProducts = () => {
   const debounceTimeout = useRef(null);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
 
   const fetchProducts = async ({search, category, page}) => {
     const params = {page};
@@ -101,7 +106,7 @@ const AllProducts = () => {
   return (
     <div className="min-h-screen flex">
       {/* Sidebar */}
-      <Sidebar title={"Filters"}>
+      <Sidebar title={"Filters"} isOpen={isOpen} toggleSidebar={toggleSidebar}>
         <CheckboxGroup
           title={"category"}
           items={categories || []}

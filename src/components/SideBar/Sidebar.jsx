@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import {Menu, X} from "lucide-react";
 
-const Sidebar = ({title, children}) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Sidebar = ({title, children, isOpen,  toggleSidebar}) => {
+//   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+//   const toggleSidebar = () => {
+//     setIsOpen(!isOpen);
+//   };
 
   return (
     <div className="min-h-screen flex z-50 fixed shadow-inner p-0 lg:p-1 bg-gray-100">

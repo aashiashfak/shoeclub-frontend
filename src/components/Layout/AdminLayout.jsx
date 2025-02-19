@@ -2,6 +2,7 @@ import {Outlet} from "react-router-dom";
 import {Home, Package, List} from "lucide-react";
 import Sidebar from "../SideBar/Sidebar";
 import SidebarItem from "../SideBar/SidebarItem";
+import { useState } from "react";
 
 const menuItems = [
   {name: "Dashboard", icon: Home, to: "/admin/dashboard"},
@@ -10,13 +11,25 @@ const menuItems = [
 ];
 
 const AdminLayout = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="min-h-screen flex">
-
       {/* sidebar with children */}
-      <Sidebar title="Admin">
+      <Sidebar
+        title="Admin Panel"
+        isOpen={isOpen}
+        toggleSidebar={toggleSidebar}
+      >
         {menuItems.map((item) => (
-          <SidebarItem key={item.name} {...item} />
+          <SidebarItem
+            key={item.name}
+            {...item}
+            toggleSidebar={toggleSidebar}
+          />
         ))}
       </Sidebar>
 
