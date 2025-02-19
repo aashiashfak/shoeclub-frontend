@@ -5,6 +5,7 @@ import Categories from "@/pages/admin/Categories";
 import Products from "@/pages/admin/Products";
 import {IsAdminRoute} from "@/components/Protecters/isAdminRoute";
 import AdminLayout from "@/components/Layout/AdminLayout";
+import ProductForm from "@/pages/admin/ProductForm";
 
 const AdminRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AdminRoutes = () => {
           <Route path="categories" element={<Categories />} />
           <Route path="products" element={<Products />} />
         </Route>
+        <Route path="product-form" element={<ProductForm/>} />
       </Routes>
     </IsAdminRoute>
   );
