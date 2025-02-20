@@ -6,6 +6,8 @@ import Products from "@/pages/admin/Products";
 import {IsAdminRoute} from "@/components/Protecters/isAdminRoute";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import ProductForm from "@/pages/admin/ProductForm";
+import Sizes from "@/pages/admin/Sizes";
+import Images from "@/pages/admin/Images"
 
 const AdminRoutes = () => {
   return (
@@ -16,8 +18,10 @@ const AdminRoutes = () => {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="categories" element={<Categories />} />
           <Route path="products" element={<Products />} />
+          <Route path="sizes" element={<Sizes />} />
+          <Route path="Images" element={<Images/>} />
         </Route>
-        <Route path="product-form" element={<ProductForm/>} />
+        <Route path="product-form" element={<ProductForm />} />
       </Routes>
     </IsAdminRoute>
   );

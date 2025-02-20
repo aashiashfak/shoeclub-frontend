@@ -1,10 +1,12 @@
-import { Edit } from "lucide-react";
-import { CustomTable } from "./CutomTable";
-import { useNavigate } from "react-router-dom";
+import {Edit} from "lucide-react";
+import {CustomTable} from "./CutomTable";
+import {useNavigate} from "react-router-dom";
+import {Tooltip} from "react-tooltip";
 
 export function ProductTable({products}) {
-    console.log( "products in product Tanblee", products)
-    const navigate = useNavigate()
+  console.log("products in product Table", products);
+  const navigate = useNavigate();
+
   const columns = [
     {
       header: "Image",
@@ -15,7 +17,14 @@ export function ProductTable({products}) {
               row.images.find((img) => img.is_main)?.image || "/placeholder.svg"
             }
             alt={row.name}
-            className="w-full h-full object-cover rounded-md"
+            className="w-full h-full object-cover rounded-md cursor-pointer"
+            data-tooltip-id="image-tooltip"
+            data-tooltip-content={"list images"}
+            data-tooltip-place="top"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/admin/images`, {state: {product: row}});
+            }}
           />
         </div>
       ),
@@ -27,7 +36,16 @@ export function ProductTable({products}) {
     {
       header: "Sizes",
       accessorKey: (row) => (
-        <div className="flex flex-wrap gap-1">
+        <div
+          className="flex flex-wrap gap-1 cursor-pointer"
+          data-tooltip-id="size-tooltip"
+          data-tooltip-content="list all"
+          data-tooltip-place="top"
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(`/admin/sizes`, {state: {product: row}});
+          }}
+        >
           {row.sizes.map((size) => (
             <span
               key={size.size}
@@ -45,7 +63,7 @@ export function ProductTable({products}) {
         <button
           className="text-white font-bold py-1 px-2 rounded"
           onClick={(e) => {
-            e.stopPropagation(); // Prevents row click event
+            e.stopPropagation();
             navigate(`/admin/product-form`, {state: {product: row}});
           }}
         >
@@ -55,5 +73,11 @@ export function ProductTable({products}) {
     },
   ];
 
-  return <CustomTable data={products} columns={columns} />;
+  return (
+    <>
+      <CustomTable data={products} columns={columns} />
+      <Tooltip id="image-tooltip" />
+      <Tooltip id="size-tooltip" />
+    </>
+  );
 }
