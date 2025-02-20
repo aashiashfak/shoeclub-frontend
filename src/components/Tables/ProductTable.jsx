@@ -10,7 +10,7 @@ export function ProductTable({products}) {
         <div className="w-16 h-16 relative">
           <img
             src={
-              row.images.find((img) => img.is_main)?.image_url ||
+              row.images.find((img) => img.is_main)?.image ||
               "/placeholder.svg"
             }
             alt={row.name}

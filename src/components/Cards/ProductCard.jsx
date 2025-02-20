@@ -53,7 +53,7 @@ const ProductCard = ({product}) => {
     >
       <div className="relative h-48 w-full">
         <img
-          src={images[0]?.image_url || "https://via.placeholder.com/300"}
+          src={images[0]?.image || "https://via.placeholder.com/300"}
           alt={name}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />

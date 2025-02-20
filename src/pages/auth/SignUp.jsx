@@ -1,12 +1,13 @@
 import React, {useState} from "react";
 import SignUpForm from "@/components/Forms/SignUpForm";
 import {InputOTPControlled} from "@/components/Forms/OtpComponent";
-import instance from "@/utils/axios";
+import { instance } from "@/utils/axios";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setUser} from "@/redux/Slices/AuthSlice";
 import useToastNotification from "@/hooks/SonnerToast";
 import BackButton from "@/components/Buttons/BackButton";
+import { setExpiryTime } from "@/utils/axiosFunctions";
 
 const SignUp = () => {
   const [isOTPsent, setIsOTPsent] = useState(false);
@@ -42,6 +43,7 @@ const SignUp = () => {
           role: user.role || "",
         })
       );
+      setExpiryTime();
       showToast("User created and logged in successfully", "success");
       navigate("/");
       console.log("OTP verified successfully", response.data);

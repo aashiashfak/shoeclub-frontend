@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {Input} from "@/components/ui/input";
@@ -15,6 +15,8 @@ import {Button} from "@/components/ui/button";
 import {Plus, Trash} from "lucide-react";
 import {useQuery} from "@tanstack/react-query";
 import {CategoryServices} from "@/services/categoryServices";
+import {ProductServices} from "@/services/productServices";
+import useToastNotification from "@/hooks/SonnerToast";
 
 const MAX_IMAGES = 5;
 const MAX_SIZES = 5;
@@ -23,6 +25,8 @@ const ProductForm = () => {
   const location = useLocation();
   const product = location.state?.product || null;
   const isEditMode = Boolean(product);
+  const showToast = useToastNotification();
+  const navigate = useNavigate();
 
   const [isChanged, setIsChanged] = useState(false);
 
@@ -39,7 +43,7 @@ const ProductForm = () => {
       description: product?.description || "",
       price: product?.price || "",
       category: product?.category || "Sneakers",
-      images: product?.images || [{image_url: "", is_main: false}],
+      images: product?.images || [{image: "", is_main: false}],
       sizes: product?.sizes || [{size: "", quantity: ""}],
     },
     validationSchema: Yup.object({
@@ -51,7 +55,7 @@ const ProductForm = () => {
       images: Yup.array()
         .of(
           Yup.object().shape({
-            image_url: Yup.string().required("Image URL is required"),
+            image: Yup.string().required("Image  is required"),
           })
         )
         .min(1, "At least one image is required"),
@@ -64,8 +68,50 @@ const ProductForm = () => {
         )
         .min(1, "At least one size is required"),
     }),
-    onSubmit: (values) => {
-      console.log("Form Submitted", values);
+    onSubmit: async (values) => {
+      try {
+        if (!isEditMode) {
+          console.log("Form Submitted", values);
+
+          let formData = new FormData();
+
+          formData.append("name", values.name);
+          formData.append("category", values.category);
+          formData.append("description", values.description);
+          formData.append("price", values.price);
+          formData.append("design_type", values.design_type);
+
+          // Append sizes
+          values.sizes.forEach((size, index) => {
+            formData.append(`sizes[${index}][size]`, size.size);
+            formData.append(`sizes[${index}][quantity]`, size.quantity);
+          });
+
+          // Append images
+          values.images.forEach((image, index) => {
+            if (image.image instanceof File) {
+              formData.append(`images[${index}][image]`, image.image); // Append the File object
+            }
+            formData.append(
+              `images[${index}][is_main]`,
+              index === 0 ? true : false
+            );
+          });
+
+          let response;
+          response = await ProductServices.createProducts(formData);
+          showToast("Product created successfully", "success");
+          console.log(response);
+          navigate("/admin/products");
+        } else {
+          // Update existing product
+          // response = await ProductServices.updateProduct(product.id, formData);
+          // showToast("Product updated successfully", "success");
+        }
+      } catch (error) {
+        console.error(error);
+        showToast("Operation failed", "error");
+      }
     },
   });
 
@@ -109,7 +155,11 @@ const ProductForm = () => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const updatedImages = [...formik.values.images];
-        updatedImages[index].image_url = e.target.result;
+        updatedImages[index] = {
+          image: file,
+          preview: e.target.result,
+          is_main: false,
+        };
         formik.setFieldValue("images", updatedImages);
       };
       reader.readAsDataURL(file);
@@ -222,9 +272,9 @@ const ProductForm = () => {
                       onChange={(e) => handleImageUpload(e, index)}
                       className="border rounded p-1 w-1/3 lg:w-auto"
                     />
-                    {formik.errors.images?.[index]?.image_url && (
+                    {formik.errors.images?.[index]?.image && (
                       <div className="text-red-500 text-xs">
-                        {formik.errors.images[index].image_url}
+                        {formik.errors.images[index].image}
                       </div>
                     )}
                     <Button
@@ -236,9 +286,9 @@ const ProductForm = () => {
                       <Trash size={16} />
                     </Button>
                   </div>
-                  {image.image_url && (
+                  {image.preview && (
                     <img
-                      src={image.image_url}
+                      src={image.preview}
                       alt={`Preview ${index}`}
                       className="w-16 h-16 object-cover rounded"
                     />

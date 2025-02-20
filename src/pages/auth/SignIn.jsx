@@ -2,11 +2,12 @@ import BackButton from "@/components/Buttons/BackButton";
 import {InputOTPControlled} from "@/components/Forms/OtpComponent";
 import SignInForm from "@/components/Forms/SignInForm";
 import {setUser} from "@/redux/Slices/AuthSlice";
-import instance from "@/utils/axios";
+import { instance } from "@/utils/axios";
 import useToastNotification from "@/hooks/SonnerToast";
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import { setExpiryTime } from "@/utils/axiosFunctions";
 
 const SignIn = () => {
   const [isOTPsent, setIsOTPsent] = useState(false);
@@ -25,6 +26,7 @@ const SignIn = () => {
       const response = await instance.post("/accounts/sign-in/", {
         email: values.email,
       });
+      setExpiryTime()
       showToast(response.data.message || "otp sent succuss", "success");
       setIsOTPsent(true);
     } catch (error) {

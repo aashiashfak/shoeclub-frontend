@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import instance from "@/utils/axios";
 import {Button} from "../ui/button";
 import useToastNotification from "@/hooks/SonnerToast";
+import { instance } from "@/utils/axios";
 
 const SignUpForm = ({setUserData, setIsOTPsent}) => {
   const [loading, setLoading] = useState(false);
