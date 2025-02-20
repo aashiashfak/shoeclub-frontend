@@ -3,6 +3,7 @@ import {Home, Package, List} from "lucide-react";
 import Sidebar from "../SideBar/Sidebar";
 import SidebarItem from "../SideBar/SidebarItem";
 import { useState } from "react";
+import Logo from "../logo/logo";
 
 const menuItems = [
   {name: "Dashboard", icon: Home, to: "/admin/dashboard"},
@@ -17,13 +18,9 @@ const AdminLayout = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex ">
       {/* sidebar with children */}
-      <Sidebar
-        title="Admin Panel"
-        isOpen={isOpen}
-        toggleSidebar={toggleSidebar}
-      >
+      <Sidebar title={<Logo />} isOpen={isOpen} toggleSidebar={toggleSidebar}>
         {menuItems.map((item) => (
           <SidebarItem
             key={item.name}

@@ -27,8 +27,8 @@ const Sidebar = ({title, children, isOpen,  toggleSidebar}) => {
         } lg:translate-x-0 lg:block`}
       >
         {/* Sidebar content */}
-        <div className="flex justify-between items-center p-4 border-b border-gray-700">
-          <div className="text-lg font-semibold">{title}</div>
+        <div className="flex justify-between items-center p-2 border-b border-gray-700">
+          <div className="text-md font-semibold">{title}</div>
           <button className="lg:hidden" onClick={toggleSidebar}>
             <X />
           </button>
