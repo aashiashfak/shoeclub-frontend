@@ -36,6 +36,8 @@ const ProductForm = () => {
     refetchOnWindowFocus: false,
   });
 
+  console.log(product);
+
   const formik = useFormik({
     initialValues: {
       name: product?.name || "",
@@ -70,10 +72,9 @@ const ProductForm = () => {
     }),
     onSubmit: async (values) => {
       try {
+        let formData = new FormData();
         if (!isEditMode) {
           console.log("Form Submitted", values);
-
-          let formData = new FormData();
 
           formData.append("name", values.name);
           formData.append("category", values.category);
@@ -104,9 +105,23 @@ const ProductForm = () => {
           console.log(response);
           navigate("/admin/products");
         } else {
-          // Update existing product
-          // response = await ProductServices.updateProduct(product.id, formData);
-          // showToast("Product updated successfully", "success");
+          Object.keys(values).forEach((key) => {
+            if (key !== "sizes" && key !== "images") {
+              if (
+                JSON.stringify(values[key]) !==
+                JSON.stringify(formik.initialValues[key])
+              ) {
+                formData.append(key, values[key]);
+              }
+            }
+          });
+          let response = await ProductServices.updateProduct(
+            product.id,
+            formData
+          );
+          showToast("Product updated successfully", "success");
+          console.log(response);
+          navigate("/admin/products");
         }
       } catch (error) {
         console.error(error);

@@ -1,8 +1,10 @@
 import { Edit } from "lucide-react";
 import { CustomTable } from "./CutomTable";
+import { useNavigate } from "react-router-dom";
 
 export function ProductTable({products}) {
     console.log( "products in product Tanblee", products)
+    const navigate = useNavigate()
   const columns = [
     {
       header: "Image",
@@ -10,8 +12,7 @@ export function ProductTable({products}) {
         <div className="w-16 h-16 relative">
           <img
             src={
-              row.images.find((img) => img.is_main)?.image ||
-              "/placeholder.svg"
+              row.images.find((img) => img.is_main)?.image || "/placeholder.svg"
             }
             alt={row.name}
             className="w-full h-full object-cover rounded-md"
@@ -22,6 +23,7 @@ export function ProductTable({products}) {
     {header: "Name", accessorKey: "name"},
     {header: "Category", accessorKey: "category"},
     {header: "Price", accessorKey: "price"},
+    {header: "Design Type", accessorKey: "design_type"},
     {
       header: "Sizes",
       accessorKey: (row) => (
@@ -38,14 +40,19 @@ export function ProductTable({products}) {
       ),
     },
     {
-        header: "Edit",
-        accessorKey: (row) => (
-            <div className="flex items-center gap-2">
-                <button className="text-white font-bold py-
-                1 px-2 rounded"><Edit className="text-black"/></button>
-            </div>
-        )
-    }
+      header: "Edit",
+      accessorKey: (row) => (
+        <button
+          className="text-white font-bold py-1 px-2 rounded"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevents row click event
+            navigate(`/admin/product-form`, {state: {product: row}});
+          }}
+        >
+          <Edit className="text-black" />
+        </button>
+      ),
+    },
   ];
 
   return <CustomTable data={products} columns={columns} />;

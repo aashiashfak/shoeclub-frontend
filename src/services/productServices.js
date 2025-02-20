@@ -17,4 +17,11 @@ export const ProductServices = {
     });
     return response.data;
   },
+  updateProduct: async (id, formData) => {
+    const response = await instance.patch(
+      `/custom-admin/products/${id}/`,
+      formData
+    );
+    return response.data;
+  },
 };
