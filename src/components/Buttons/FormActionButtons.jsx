@@ -1,34 +1,23 @@
-import { Trash } from "lucide-react";
+import {Trash} from "lucide-react";
 import {Button} from "../ui/button";
 
-const FormActionButtons = ({
-  isEditMode,
-  hasChanges,
-  onSave,
-  onCancel,
-  onDelete,
-}) => {
+const FormActionButtons = ({isEditMode, hasChanges, onCancel, isLoading}) => {
   return (
     <div className="flex gap-3 mt-4">
       <Button
         className="bg-black text-white"
         type="submit"
-        onClick={onSave}
-        disabled={isEditMode && !hasChanges} 
+        disabled={isEditMode && !hasChanges && isLoading}
       >
-        {isEditMode ? "Save Changes" : "Create"}
+        {isLoading ? "submitting..." : isEditMode ? "Save Changes" : "Create"}
       </Button>
 
-      <Button className=" bg-gray-500 text-white " onClick={onCancel}>
-        Cancel
-      </Button>
       <Button
         type="button"
-        onClick={onDelete}
-        variant="destructive"
-        size="icon"
+        className=" bg-gray-500 text-white "
+        onClick={onCancel}
       >
-        <Trash size={16} />
+        Cancel
       </Button>
     </div>
   );

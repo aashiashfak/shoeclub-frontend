@@ -1,42 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import ImageForm from "@/components/Forms/ImageForm";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import useToastNotification from "@/hooks/SonnerToast";
-import { imageServices } from "@/services/imageServices";
-import { useQueryClient } from "@tanstack/react-query";
+import {imageServices} from "@/services/imageServices";
+import {useQueryClient} from "@tanstack/react-query";
 const ImageCrud = () => {
   const location = useLocation();
   const {productID, image} = location.state || {};
   const isEditMode = Boolean(image);
   const showToast = useToastNotification();
-  const navigate = useNavigate()
-  const queryClient = useQueryClient()
-  
-  console.log("product id in image form .........", productID)
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [isLoading, setLoading] = useState(false);
 
   const handleSubmit = async (values) => {
-    console.log("submitting image values", values)
     try {
+        setLoading(true)
       let formData = new FormData();
+      let response;
       if (!isEditMode) {
         Object.entries(values).forEach(([key, value]) => {
           formData.append(key, value);
         });
-        const response = await imageServices.createImage(productID, formData);
+        response = await imageServices.createImage(productID, formData);
         showToast("New image created successfully", "success");
-        queryClient.invalidateQueries(["products"]);
-
-        navigate(-1)
+      } else {
+        console.log("checking edit");
+        Object.entries(values).forEach(([key, value]) => {
+          if (value !== image[key]) {
+            formData.append(key, value);
+          }
+        });
+        response = await imageServices.updateImage(image.id, formData);
+        showToast("Image updated succussfully", "success");
       }
     } catch (error) {
       console.log(error);
     } finally {
-      console.log("finish");
+      queryClient.invalidateQueries(["images", productID]);
+      queryClient.invalidateQueries(["products"]);
+      setLoading(false)
+      navigate(-1);
     }
   };
 
-  const handleDelete = () => {};
 
   return (
     <div className="max-w-xl mx-auto shadow-lg my-5 p-3 rounded-lg">
@@ -48,7 +56,7 @@ const ImageCrud = () => {
         }}
         onSubmit={handleSubmit}
         isEditMode={isEditMode}
-        onDelete={handleDelete}
+        isLoading={isLoading}
       />
     </div>
   );

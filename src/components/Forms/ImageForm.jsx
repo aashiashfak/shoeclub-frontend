@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import {useNavigate} from "react-router-dom";
 import FormActionButtons from "../Buttons/FormActionButtons";
 
-const ImageForm = ({initialValues, onSubmit, onDelete, isEditMode}) => {
+const ImageForm = ({initialValues, onSubmit, isEditMode, isLoading}) => {
   const navigate = useNavigate();
   const [preview, setPreview] = useState(initialValues.image || "");
   const [hasChanges, setHasChanges] = useState(false);
@@ -25,8 +25,9 @@ const ImageForm = ({initialValues, onSubmit, onDelete, isEditMode}) => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      enableReinitialize={false}
     >
-      {({setFieldValue, values}) => {
+      {({setFieldValue, values, submitForm}) => {
         useEffect(() => {
           // Check if the form values have changed from initial values
           const isChanged =
@@ -79,11 +80,10 @@ const ImageForm = ({initialValues, onSubmit, onDelete, isEditMode}) => {
 
             {/* Buttons */}
             <FormActionButtons
-              isEditMode={isEditMode} 
+              isLoading={isLoading}
+              isEditMode={isEditMode}
               hasChanges={hasChanges}
-              onSave={onSubmit}
-              onCancel={() => navigate(-1)} 
-              onDelete={onDelete}
+              onCancel={() => navigate(-1)}
             />
           </Form>
         );

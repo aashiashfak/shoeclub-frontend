@@ -75,8 +75,6 @@ const ProductForm = () => {
       try {
         let formData = new FormData();
         if (!isEditMode) {
-          console.log("Form Submitted", values);
-
           formData.append("name", values.name);
           formData.append("category", values.category);
           formData.append("description", values.description);
@@ -106,6 +104,7 @@ const ProductForm = () => {
           console.log(response);
           navigate("/admin/products");
         } else {
+          console.log("edit started");
           Object.keys(values).forEach((key) => {
             if (key !== "sizes" && key !== "images") {
               if (
@@ -184,10 +183,10 @@ const ProductForm = () => {
 
   return (
     <div className="max-w-xl mx-auto shadow-lg my-5 p-3 rounded-lg">
-      <PageHeader title={"Product"}/>
+      <PageHeader title={"Product"} />
       <form onSubmit={formik.handleSubmit} className="space-y-2  my-10 p-2">
         {/* name */}
-            
+
         <Input
           name="name"
           value={formik.values.name}

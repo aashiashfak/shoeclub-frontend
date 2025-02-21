@@ -18,7 +18,10 @@ const Products = () => {
   console.log("products", products);
   return (
     <div className="p-2 lg:p-6 ">
-      <TableHeader title="Products" link="/admin/product-form" />
+      <TableHeader
+        title="Products"
+        link={{pathname: "/admin/product-form"}}
+      />
 
       <div className="overflow-x-auto">
         {isLoading && <Spinner />}
