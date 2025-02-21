@@ -7,7 +7,8 @@ import {IsAdminRoute} from "@/components/Protecters/isAdminRoute";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import ProductForm from "@/pages/admin/ProductForm";
 import Sizes from "@/pages/admin/Sizes";
-import Images from "@/pages/admin/Images"
+import Images from "@/pages/admin/Images";
+import ImageCrud from "@/pages/admin/ImageCrud";
 
 const AdminRoutes = () => {
   return (
@@ -19,9 +20,10 @@ const AdminRoutes = () => {
           <Route path="categories" element={<Categories />} />
           <Route path="products" element={<Products />} />
           <Route path="sizes" element={<Sizes />} />
-          <Route path="Images" element={<Images/>} />
+          <Route path="Images" element={<Images />} />
         </Route>
         <Route path="product-form" element={<ProductForm />} />
+        <Route path="image-form" element={<ImageCrud />} />
       </Routes>
     </IsAdminRoute>
   );

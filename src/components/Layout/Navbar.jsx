@@ -70,7 +70,7 @@ const Navbar = () => {
               key={item.title}
               variant="link"
               className={`text-gray-700 hover:text-black ${
-                activePath(item.path) ? "underline font-bold" : ""
+                activePath(item.path) ? " font-bold" : ""
               }`}
               onClick={() => navigate(item.path)}
             >

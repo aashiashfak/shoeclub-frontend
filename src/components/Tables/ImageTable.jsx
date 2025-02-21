@@ -3,7 +3,7 @@ import {CustomTable} from "./CutomTable";
 import {useLocation, useNavigate} from "react-router-dom";
 import {Button} from "../ui/button";
 
-export function ImageTable({images}) {
+export function ImageTable({images, productID}) {
   const navigate = useNavigate();
   const columns = [
     {
@@ -39,7 +39,7 @@ export function ImageTable({images}) {
           className="text-white font-bold py-1 px-2 rounded"
           onClick={(e) => {
             e.stopPropagation();
-            navigate(`/admin/sizes-form`, {state: {images: row}});
+            navigate(`/admin/image-form`, {state: {image: row, productID:productID}});
           }}
         >
           <Edit className="text-black" />

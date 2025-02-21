@@ -16,7 +16,7 @@ const Spinner = ({height = "80vh"}) => {
         autoplay
         loop
         src={spinner}
-        style={{height: "80px", width: "80px"}}
+        style={{height: "170px", width: "170px"}}
       />
     </div>
   );

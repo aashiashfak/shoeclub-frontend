@@ -8,7 +8,11 @@ const TableHeader = ({title, link}) => {
   return (
     <div className="flex justify-between items-center mb-6 ">
       <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
-      <Button type="button" onClick={() => navigate(link)} variant="outline">
+      <Button
+        type="button"
+        onClick={() => navigate(link.pathname, {state: link.state})}
+        variant="outline"
+      >
         <Plus size={16} /> Add Product
       </Button>
     </div>

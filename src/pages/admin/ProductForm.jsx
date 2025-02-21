@@ -17,6 +17,7 @@ import {useQuery} from "@tanstack/react-query";
 import {CategoryServices} from "@/services/categoryServices";
 import {ProductServices} from "@/services/productServices";
 import useToastNotification from "@/hooks/SonnerToast";
+import PageHeader from "@/components/PageHeader/PageHeader";
 
 const MAX_IMAGES = 5;
 const MAX_SIZES = 5;
@@ -183,13 +184,10 @@ const ProductForm = () => {
 
   return (
     <div className="max-w-xl mx-auto shadow-lg my-5 p-3 rounded-lg">
-      <h1 className="my-5 text-2xl font-bold mx-auto text-center">
-        {" "}
-        Product Form
-      </h1>
+      <PageHeader title={"Product"}/>
       <form onSubmit={formik.handleSubmit} className="space-y-2  my-10 p-2">
         {/* name */}
-
+            
         <Input
           name="name"
           value={formik.values.name}
