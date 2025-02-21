@@ -9,6 +9,7 @@ import ProductForm from "@/pages/admin/ProductForm";
 import Sizes from "@/pages/admin/Sizes";
 import Images from "@/pages/admin/Images";
 import ImageCrud from "@/pages/admin/ImageCrud";
+import SizesCrud from "@/pages/admin/SizesCrud";
 
 const AdminRoutes = () => {
   return (
@@ -24,6 +25,7 @@ const AdminRoutes = () => {
         </Route>
         <Route path="product-form" element={<ProductForm />} />
         <Route path="image-form" element={<ImageCrud />} />
+        <Route path="size-form" element={<SizesCrud />} />
       </Routes>
     </IsAdminRoute>
   );
