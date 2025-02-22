@@ -1,12 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Button} from "@/components/ui/button";
-import {Bell, User, Home, Phone, Info, ShoppingBag, Menu} from "lucide-react";
-import {useDispatch, useSelector} from "react-redux";
+import {User, Home, Phone, Info, ShoppingBag, Menu} from "lucide-react";
+import {useSelector} from "react-redux";
 import {useLocation, useNavigate} from "react-router-dom";
 import "../../components/Dropdown/dropdown.css";
 import ProfileDropdown from "../Dropdown/ProfileDropdown.jsx";
-import Logo from "../logo/logo";
-import {toggleSidebar} from "@/redux/Slices/sidebarSlice";
+import Logo from "../logo/Logo";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
