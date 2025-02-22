@@ -57,6 +57,7 @@ const AllProducts = ({isOpen, toggleSidebar}) => {
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
+    setCurrentPage(1);
 
     if (debounceTimeout.current) {
       clearTimeout(debounceTimeout.current);
