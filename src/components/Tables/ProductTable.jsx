@@ -38,7 +38,7 @@ export function ProductTable({products}) {
         <div className="w-16 h-16 relative">
           <img
             src={
-              row.images.find((img) => img.is_main)?.image || "/placeholder.svg"
+              row.images.find((img) => img.is_main)?.image || ""
             }
             alt={row.name}
             className="w-full h-full object-cover rounded-md cursor-pointer"

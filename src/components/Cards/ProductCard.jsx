@@ -49,17 +49,19 @@ const ProductCard = ({product}) => {
   return (
     <div
       className={`group relative overflow-hidden rounded-lg shadow-md transition-all hover:shadow-lg
-        ${isBase ? "bg-white text-gray-700" : "bg-gray-200 "}`} 
+        ${isBase ? "bg-white text-gray-700" : "bg-gray-200 "}`}
     >
       <div className="relative h-48 w-full">
         <img
-          src={images[0]?.image || "https://via.placeholder.com/300"}
+          src={
+            images.find((img) => img.is_main)?.image || images[0]?.image || ""
+          }
           alt={name}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </div>
       <div className="p-4">
-        <h3 className="mb-1 text-lg font-semibold ">{name}</h3>
+        <h3 className={`mb-1 text-lg font-semibold ${isBase ? "text-black": "text-gray-500"}`}>{name}</h3>
         <div className="mb-2 text-xl font-bold text-gray-900">
           ₹{price.toLocaleString()}
         </div>
@@ -75,7 +77,11 @@ const ProductCard = ({product}) => {
         </div>
 
         <div className="flex items-center justify-between">
-          <Button className={`flex items-center gap-2 ${isBase ? "bg-orange-500" : "bg-blue-800"} `} >
+          <Button
+            className={`flex items-center gap-2 ${
+              isBase ? "bg-orange-500" : "bg-blue-800"
+            } `}
+          >
             <ShoppingCart className="h-4 w-4" />
             Add to Cart
           </Button>
