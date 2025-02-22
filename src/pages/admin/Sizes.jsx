@@ -1,21 +1,32 @@
 import TableHeader from "@/components/PageHeader/TableHeader";
 import Spinner from "@/components/Spinner/Spinner";
 import {SizeTable} from "@/components/Tables/SizeTable";
-import { sizeServices } from "@/services/sizeServices";
+import {sizeServices} from "@/services/sizeServices";
 import {useQuery} from "@tanstack/react-query";
-import React from "react";
-import {useLocation} from "react-router-dom";
+import React, {useEffect} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Sizes = () => {
   const location = useLocation();
   const product = location.state?.product || null;
-  const {id: productID, name} = product;
+  const navigate = useNavigate();
+  const {id: productID, name} = product || {};
+  useEffect(() => {
+    if (!product) {
+      navigate(-1);
+    }
+  }, [product]);
+  
+  if (!product) {
+    return null;
+  }
   const {data: sizes, isLoading} = useQuery({
     queryKey: ["sizes", productID],
     queryFn: async () => await sizeServices.getSizes(productID),
     refetchOnWindowFocus: false,
+    enabled: !!productID,
   });
-  console.log("product id in sizes page", productID);
+
   return (
     <>
       <TableHeader

@@ -5,6 +5,7 @@ import PageHeader from "@/components/PageHeader/PageHeader";
 import useToastNotification from "@/hooks/SonnerToast";
 import {imageServices} from "@/services/imageServices";
 import {useQueryClient} from "@tanstack/react-query";
+import BackButton from "@/components/Buttons/BackButton";
 const ImageCrud = () => {
   const location = useLocation();
   const {productID, image} = location.state || {};
@@ -48,6 +49,7 @@ const ImageCrud = () => {
 
   return (
     <div className="max-w-xl mx-auto shadow-lg my-5 p-3 rounded-lg">
+      <BackButton handleBackClick={() => navigate(-1)} />
       <PageHeader title={`${isEditMode ? "Edit" : "Create"} Image`} />
       <ImageForm
         initialValues={{

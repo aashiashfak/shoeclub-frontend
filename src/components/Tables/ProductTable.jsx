@@ -1,11 +1,35 @@
-import {Edit} from "lucide-react";
+import {Edit, Trash} from "lucide-react";
 import {CustomTable} from "./CutomTable";
 import {useNavigate} from "react-router-dom";
 import {Tooltip} from "react-tooltip";
+import { useState } from "react";
+import useToastNotification from "@/hooks/SonnerToast";
+import { useQueryClient } from "@tanstack/react-query";
+import { ProductServices } from "@/services/productServices";
+import DeleteModal from "../Modals/DeleteModal";
 
 export function ProductTable({products}) {
-  console.log("products in product Table", products);
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState({});
+  const showToast = useToastNotification();
+  const queryClient = useQueryClient();
+  const [isLoading, setLoading] = useState(false);
+
+  const handleDelete = async () => {
+      try {
+          setLoading(true)
+        await ProductServices.deleteProduct(selectedProduct?.id);
+        showToast("product deleted succussfully", "success");
+      } catch (error) {
+        console.log(error);
+      } finally {
+        await queryClient.invalidateQueries(["products"]);
+        setLoading(false)
+        setIsOpen(false);
+      }
+    };
+
 
   const columns = [
     {
@@ -58,23 +82,43 @@ export function ProductTable({products}) {
       ),
     },
     {
-      header: "Edit",
+      header: "Action Type",
       accessorKey: (row) => (
-        <button
-          className="text-white font-bold py-1 px-2 rounded"
-          onClick={(e) => {
-            e.stopPropagation();
-            navigate(`/admin/product-form`, {state: {product: row}});
-          }}
-        >
-          <Edit className="text-black" />
-        </button>
+        <div className="flex gap-3">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/admin/product-form`, {
+                state: {product: row, },
+              });
+            }}
+          >
+            <Edit className="text-black hover:text-blue-500" />
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedProduct(row);
+              setIsOpen(true);
+            }}
+          >
+            <Trash className="text-black hover:text-red-500" />
+          </button>
+        </div>
       ),
     },
   ];
 
   return (
     <>
+      {isOpen && (
+        <DeleteModal
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          onConfirm={handleDelete}
+          isLoading={isLoading}
+        />
+      )}
       <CustomTable data={products} columns={columns} />
       <Tooltip id="image-tooltip" />
       <Tooltip id="size-tooltip" />

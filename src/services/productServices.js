@@ -24,4 +24,8 @@ export const ProductServices = {
     );
     return response.data;
   },
+  deleteProduct: async (id) => {
+    const response = await instance.delete(`/custom-admin/products/${id}/`);
+    return response.data;
+  },
 };

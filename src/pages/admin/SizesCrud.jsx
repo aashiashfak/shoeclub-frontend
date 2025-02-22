@@ -5,6 +5,7 @@ import useToastNotification from "@/hooks/SonnerToast";
 import {useQueryClient} from "@tanstack/react-query";
 import SizeForm from "@/components/Forms/SizeForm";
 import {sizeServices} from "@/services/sizeServices";
+import BackButton from "@/components/Buttons/BackButton";
 const SizesCrud = () => {
   const location = useLocation();
   const {productID, size} = location.state || {};
@@ -50,6 +51,7 @@ const SizesCrud = () => {
 
   return (
     <div className="max-w-xl mx-auto shadow-lg my-5 p-3 rounded-lg ">
+      <BackButton handleBackClick={() => navigate(-1)} />
       <PageHeader title={`${isEditMode ? "Edit" : "Add"} size`} />
       <SizeForm
         initialValues={{

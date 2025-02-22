@@ -12,20 +12,19 @@ const menuItems = [
 ];
 
 const AdminLayout = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+//   const [isOpen, setIsOpen] = useState(false);
+//   const toggleSidebar = () => {
+//     setIsOpen(!isOpen);
+//   };
 
   return (
     <div className="min-h-screen flex ">
       {/* sidebar with children */}
-      <Sidebar title={<Logo />} isOpen={isOpen} toggleSidebar={toggleSidebar}>
+      <Sidebar title={<Logo />} >
         {menuItems.map((item) => (
           <SidebarItem
             key={item.name}
             {...item}
-            toggleSidebar={toggleSidebar}
           />
         ))}
       </Sidebar>

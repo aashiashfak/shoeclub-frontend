@@ -3,26 +3,37 @@ import Spinner from "@/components/Spinner/Spinner";
 import {ImageTable} from "@/components/Tables/ImageTable";
 import {imageServices} from "@/services/imageServices";
 import {useQuery} from "@tanstack/react-query";
-import React from "react";
-import {useLocation} from "react-router-dom";
+import React, { useEffect } from "react";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Images = () => {
   const location = useLocation();
+  const navigate = useNavigate()
   const product = location.state?.product || null;
-  const {id: productID, name} = product;
+  const {id: productID, name} = product || {};
+    useEffect(() => {
+      if (!product) {
+        navigate(-1);
+      }
+    }, [product]);
+    
+    if (!product) {
+      return null;
+    }
   const {data: images, isLoading} = useQuery({
     queryKey: ["images", productID],
     queryFn: async () => await imageServices.getImages(productID),
     refetchOnWindowFocus: false,
+    enabled: !!productID,
   });
-  console.log("product id in sizes page", productID);
+
   return (
     <>
       <TableHeader
         title={name}
         link={{pathname: "/admin/image-form", state: {productID}}}
       />
-      {isLoading && <Spinner/>}
+      {isLoading && <Spinner />}
       {images && <ImageTable images={images} productID={productID} />}
     </>
   );

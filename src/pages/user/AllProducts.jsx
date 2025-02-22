@@ -8,17 +8,12 @@ import ProductCard from "@/components/Cards/ProductCard";
 import {CategoryServices} from "@/services/categoryServices";
 import Spinner from "@/components/Spinner/Spinner";
 
-const AllProducts = () => {
+const AllProducts = ({isOpen, toggleSidebar}) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState(searchQuery);
   const debounceTimeout = useRef(null);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
 
   const fetchProducts = async ({search, category, page}) => {
     const params = {page};
@@ -117,13 +112,13 @@ const AllProducts = () => {
       </Sidebar>
 
       {/* Main content */}
-      <div className="lg:ml-72 w-full p-1">
+      <div className="lg:ml-72 w-full p-2">
         {/* Search and Product Count per page */}
         <div className="mb-4 flex justify-between items-center sticky top-[66px] lg:top-[72px] px-1 py-3 z-30 bg-white">
           <input
             type="text"
             placeholder="Search Product by name, category, or description"
-            className="w-full md:w-1/2 p-2 border border-gray-300 rounded-lg shadow-sm"
+            className="w-2/3 p-2 border border-gray-300 rounded-lg shadow-sm"
             value={searchQuery}
             onChange={handleSearchChange}
           />

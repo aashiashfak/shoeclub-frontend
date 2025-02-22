@@ -1,19 +1,19 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Button} from "@/components/ui/button";
-import {Bell, User, Home, Phone, Info, ShoppingBag} from "lucide-react";
-import {useSelector} from "react-redux";
+import {Bell, User, Home, Phone, Info, ShoppingBag, Menu} from "lucide-react";
+import {useDispatch, useSelector} from "react-redux";
 import {useLocation, useNavigate} from "react-router-dom";
 import "../../components/Dropdown/dropdown.css";
 import ProfileDropdown from "../Dropdown/ProfileDropdown.jsx";
 import Logo from "../logo/logo";
-
+import {toggleSidebar} from "@/redux/Slices/sidebarSlice";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const isAdmin = useSelector((state)=> state.userAuth.role === "Admin")
+  const isAdmin = useSelector((state) => state.userAuth.role === "Admin");
 
   const isAuthenticated = useSelector(
     (state) => state.userAuth.isAuthenticated
@@ -62,7 +62,6 @@ const Navbar = () => {
       <div className="flex items-center justify-between px-6 py-3 bg-white shadow-md sticky top-0 z-50">
         {/* Left Side: Heading */}
         <Logo />
-
         {/* Center: Navigation Links (hidden on small screens) */}
         <div className="hidden md:flex space-x-6">
           {navItems.map((item) => (

@@ -18,6 +18,8 @@ import {CategoryServices} from "@/services/categoryServices";
 import {ProductServices} from "@/services/productServices";
 import useToastNotification from "@/hooks/SonnerToast";
 import PageHeader from "@/components/PageHeader/PageHeader";
+import BackButton from "@/components/Buttons/BackButton";
+import FormActionButtons from "@/components/Buttons/FormActionButtons";
 
 const MAX_IMAGES = 5;
 const MAX_SIZES = 5;
@@ -28,6 +30,7 @@ const ProductForm = () => {
   const isEditMode = Boolean(product);
   const showToast = useToastNotification();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [isChanged, setIsChanged] = useState(false);
 
@@ -65,7 +68,9 @@ const ProductForm = () => {
       sizes: Yup.array()
         .of(
           Yup.object().shape({
-            size: Yup.string().required("Size is required"),
+            size: Yup.string()
+              .required("Size is required")
+              .max(8, "Size cannot be longer than 8 characters"),
             quantity: Yup.number().required("Quantity is required"),
           })
         )
@@ -73,6 +78,7 @@ const ProductForm = () => {
     }),
     onSubmit: async (values) => {
       try {
+        setLoading(true);
         let formData = new FormData();
         if (!isEditMode) {
           formData.append("name", values.name);
@@ -102,7 +108,6 @@ const ProductForm = () => {
           response = await ProductServices.createProducts(formData);
           showToast("Product created successfully", "success");
           console.log(response);
-          navigate("/admin/products");
         } else {
           console.log("edit started");
           Object.keys(values).forEach((key) => {
@@ -121,11 +126,13 @@ const ProductForm = () => {
           );
           showToast("Product updated successfully", "success");
           console.log(response);
-          navigate("/admin/products");
         }
+        navigate("/admin/products");
       } catch (error) {
         console.error(error);
         showToast("Operation failed", "error");
+      } finally {
+        setLoading(false);
       }
     },
   });
@@ -183,6 +190,7 @@ const ProductForm = () => {
 
   return (
     <div className="max-w-xl mx-auto shadow-lg my-5 p-3 rounded-lg">
+      <BackButton handleBackClick={() => navigate(-1)} />
       <PageHeader title={"Product"} />
       <form onSubmit={formik.handleSubmit} className="space-y-2  my-10 p-2">
         {/* name */}
@@ -380,10 +388,12 @@ const ProductForm = () => {
             </div>
           </>
         )}
-
-        <Button type="submit" disabled={isEditMode && !isChanged}>
-          {isEditMode ? "Update Product" : "Create Product"}
-        </Button>
+        <FormActionButtons
+          hasChanges={isChanged}
+          isEditMode={isEditMode}
+          onCancel={() => navigate(-1)}
+          isLoading={loading}
+        />
       </form>
     </div>
   );

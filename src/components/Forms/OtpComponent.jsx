@@ -51,7 +51,6 @@ export function InputOTPControlled({
       <Button
         disabled={value.length < 6 || isLoading}
         onClick={verifyAndLogin}
-        isLoading={isLoading}
       >
         {isLoading ? " Loading..." : "Verify and Login"}
       </Button>

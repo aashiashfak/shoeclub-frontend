@@ -4,24 +4,25 @@ import PageHeader from "@/components/PageHeader/PageHeader";
 import useToastNotification from "@/hooks/SonnerToast";
 import {useQueryClient} from "@tanstack/react-query";
 import CategoryForm from "@/components/Forms/CategoryForm";
-import { CategoryServices } from "@/services/categoryServices";
+import {CategoryServices} from "@/services/categoryServices";
+import BackButton from "@/components/Buttons/BackButton";
 
 const CategoryCrud = () => {
   const location = useLocation();
-  const category = location.state?.category
-  const isEditMode = Boolean(category)
+  const category = location.state?.category;
+  const isEditMode = Boolean(category);
   const showToast = useToastNotification();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [isLoading, setLoading] = useState(false);
 
-  console.log('category is ------',category)
+  console.log("category is ------", category);
 
   const handleSubmit = async (values, {setErrors}) => {
     try {
       setLoading(true);
       let response;
-      let data = {}
+      let data = {};
       if (!isEditMode) {
         Object.entries(values).forEach(([key, value]) => {
           data[key] = value;
@@ -51,6 +52,7 @@ const CategoryCrud = () => {
 
   return (
     <div className="max-w-xl mx-auto shadow-lg my-5 p-3 rounded-lg ">
+      <BackButton handleBackClick={() => navigate(-1)} />
       <PageHeader title={`${isEditMode ? "Edit" : "Add"} category`} />
       <CategoryForm
         initialValues={{

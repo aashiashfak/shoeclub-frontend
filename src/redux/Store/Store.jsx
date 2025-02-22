@@ -2,14 +2,16 @@ import {configureStore, combineReducers} from "@reduxjs/toolkit";
 import {persistStore, persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authReducer from "@/redux/Slices/AuthSlice";
+import sideBarReducer from "@/redux/Slices/sidebarSlice"
 
 const rootReducer = combineReducers({
   userAuth: authReducer,
+  sidebar: sideBarReducer
 });
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["userAuth"],
+  whitelist: ["userAuth", "sidebar"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
