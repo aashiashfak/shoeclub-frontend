@@ -10,6 +10,8 @@ const CategoryForm = ({initialValues, onSubmit, isEditMode, isLoading}) => {
   const navigate = useNavigate();
   const [hasChanges, setHasChanges] = useState(false);
 
+  console.log("initialValues is here---------", initialValues)
+
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .max(8, "Size cannot be longer than 8 characters")
@@ -39,7 +41,7 @@ const CategoryForm = ({initialValues, onSubmit, isEditMode, isLoading}) => {
                 type="text"
                 name="name"
                 id="name"
-                value={values.size}
+                value={values.name}
                 onChange={handleChange}
                 placeholder="Enter name"
               />

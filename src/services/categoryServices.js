@@ -10,11 +10,11 @@ export const CategoryServices = {
     return response.data;
   },
   updateCategory: async (catId, data) => {
-    const response = await instance.patch(`/custom-admin/categories/${catId}/`);
+    const response = await instance.patch(`/custom-admin/categories/${catId}/`, data);
     return response.data
   },
   deleteCategory: async (catId) => {
-    const response = await instance.patch(`/custom-admin/categories/${catId}/`);
+    const response = await instance.delete(`/custom-admin/categories/${catId}/`);
     return response.data
   },
 };

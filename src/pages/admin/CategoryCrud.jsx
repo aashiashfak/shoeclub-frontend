@@ -15,6 +15,7 @@ const CategoryCrud = () => {
   const queryClient = useQueryClient();
   const [isLoading, setLoading] = useState(false);
 
+  console.log('category is ------',category)
 
   const handleSubmit = async (values, {setErrors}) => {
     try {
@@ -30,14 +31,12 @@ const CategoryCrud = () => {
       } else {
         console.log("checking edit");
         Object.entries(values).forEach(([key, value]) => {
-          if (value !== category[key]) {
-            data[key] = value;
-          }
+          data[key] = value;
         });
         response = await CategoryServices.updateCategory(category.id, data);
         showToast("category updated succussfully", "success");
       }
-      queryClient.invalidateQueries(["categories"]);
+      queryClient.invalidateQueries(["Categories"]);
       queryClient.invalidateQueries(["products"]);
       navigate(-1);
     } catch (error) {
