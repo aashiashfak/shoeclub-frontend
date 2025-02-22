@@ -3,7 +3,9 @@ import {store} from "@/redux/Store/Store";
 import {hasTokenExpired, refreshToken} from "./axiosFunctions";
 
 const isLocalhost = window.location.hostname === "localhost";
-const baseURL = isLocalhost ? "http://localhost:8000/" : "";
+const baseURL = isLocalhost
+  ? "http://localhost:8000/"
+  : "https://shoeclub.vercel.app/";
 
 // Axios instance for regular API calls
 export const instance = axios.create({
