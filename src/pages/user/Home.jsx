@@ -3,7 +3,7 @@ import React from 'react'
 const Home = () => {
   return (
     <div>
-      hie yyou
+      click all products to list products
     </div>
   )
 }
