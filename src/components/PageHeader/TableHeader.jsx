@@ -13,7 +13,7 @@ const TableHeader = ({title, link}) => {
         onClick={() => navigate(link.pathname, {state: link.state})}
         variant="outline"
       >
-        <Plus size={16} /> Add Product
+        <Plus size={16} /> Add item
       </Button>
     </div>
   );
