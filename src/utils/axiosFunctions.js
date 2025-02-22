@@ -1,9 +1,8 @@
-import {setAccessToken, logout} from "../redux/slices/AuthSlice";
+import {setAccessToken, logout} from "@/redux/Slices/AuthSlice";
 import logoutService from "@/services/logoutService";
-import { store } from "@/redux/Store/Store";
+import {store} from "@/redux/Store/Store";
 import Cookies from "js-cookie";
 import {noAuthInstance} from "./axios";
-
 
 const getExpiryTime = () => {
   const expiryTime = Cookies.get("expiryTime");
