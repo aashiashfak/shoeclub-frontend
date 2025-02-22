@@ -3,7 +3,7 @@ import React from "react";
 import Dashboard from "@/pages/admin/Dashboard";
 import Categories from "@/pages/admin/Categories";
 import Products from "@/pages/admin/Products";
-import {IsAdminRoute} from "@/components/Protecters/isAdminRoute";
+import { IsAdminRoute } from "@/components/Protecters/IsAdminRoute";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import ProductForm from "@/pages/admin/ProductForm";
 import Sizes from "@/pages/admin/Sizes";
