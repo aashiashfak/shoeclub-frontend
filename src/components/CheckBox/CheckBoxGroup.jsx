@@ -1,4 +1,4 @@
-import SideBarDropdown from "../Dropdown/SidebarDropdown";
+import SideBarDropdown from "../Dropdown/SideBarDropDown";
 const CheckboxGroup = ({
   title,
   items,
