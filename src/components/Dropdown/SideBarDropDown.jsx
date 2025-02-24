@@ -1,5 +1,5 @@
 import React, {useState, useRef} from "react";
-import {ChevronDown, ChevronUp} from "lucide-react";
+import {ChevronDown} from "lucide-react";
 
 const SideBarDropdown = ({title, children}) => {
   const [isExpanded, setIsExpanded] = useState(false);

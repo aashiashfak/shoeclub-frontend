@@ -59,7 +59,11 @@ const SignUp = () => {
   };
 
   const handleBackClick = () => {
-    navigate("/");
+    if (isOTPsent) {
+      setIsOTPsent(false);
+    } else {
+      navigate(-1);
+    }
   };
 
   return (

@@ -2,12 +2,12 @@ import BackButton from "@/components/Buttons/BackButton";
 import {InputOTPControlled} from "@/components/Forms/OtpComponent";
 import SignInForm from "@/components/Forms/SignInForm";
 import {setUser} from "@/redux/Slices/AuthSlice";
-import { instance } from "@/utils/axios";
+import {instance} from "@/utils/axios";
 import useToastNotification from "@/hooks/SonnerToast";
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import { setExpiryTime } from "@/utils/axiosFunctions";
+import {setExpiryTime} from "@/utils/axiosFunctions";
 
 const SignIn = () => {
   const [isOTPsent, setIsOTPsent] = useState(false);
@@ -19,19 +19,23 @@ const SignIn = () => {
   const navigate = useNavigate();
   const showToast = useToastNotification();
 
-  const handleFormSubmit = async (values) => {
+  const handleFormSubmit = async (values, {setErrors}) => {
     setEmail(values.email);
     setLoading(true);
     try {
       const response = await instance.post("/accounts/sign-in/", {
         email: values.email,
       });
-      setExpiryTime()
+      setExpiryTime();
       showToast(response.data.message || "otp sent succuss", "success");
       setIsOTPsent(true);
     } catch (error) {
+      if (error.response?.data?.error) {
+        setErrors({email: error.response?.data?.error});
+      }
       console.error("OTP sent failed", error);
-      showToast("error sending otp", "error");
+      console.error("OTP sent failed message ", error.response?.data?.error);
+      showToast(error.response?.data?.error || "error sending otp", "error");
     } finally {
       setLoading(false);
     }
@@ -69,7 +73,11 @@ const SignIn = () => {
     }
   };
   const handleBackClick = () => {
-    navigate("/");
+    if (isOTPsent) {
+      setIsOTPsent(false);
+    } else {
+      navigate(-1);
+    }
   };
 
   return (

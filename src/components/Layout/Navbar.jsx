@@ -77,7 +77,7 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Right Side: Icons */}
+        {/* Right Side: Icon */}
         <div className="flex items-center space-x-4">
           {isAuthenticated ? (
             <>
@@ -116,15 +116,22 @@ const Navbar = () => {
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-md z-50">
         <div className="flex justify-around py-2">
           {navItems.map((item) => (
-            <Button
-              key={item.title}
-              variant="ghost"
-              className="flex flex-col items-center p-2"
-              onClick={() => navigate(item.path)}
-            >
-              {item.icon}
-              <span className="text-xs mt-1">{item.title}</span>
-            </Button>
+            <div className="flex flex-col" key={item.title}>
+              <Button
+                variant="ghost"
+                className=" items-center p-2 "
+                onClick={() => navigate(item.path)}
+              >
+                {item.icon}
+              </Button>
+              <p
+                className={`text-xs ${
+                  activePath(item.path) ? "font-bold" : ""
+                }`}
+              >
+                {item.title}
+              </p>
+            </div>
           ))}
         </div>
       </div>

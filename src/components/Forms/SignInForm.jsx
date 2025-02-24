@@ -14,8 +14,8 @@ const SignInForm = ({onSubmit, isLoading}) => {
         .email("Invalid email address")
         .required("Email is required"),
     }),
-    onSubmit: (values) => {
-      onSubmit(values);
+    onSubmit: (values, formikHelpers) => {
+      onSubmit(values, formikHelpers);
     },
   });
 

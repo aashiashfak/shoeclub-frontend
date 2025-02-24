@@ -3,7 +3,6 @@ import {useQuery} from "@tanstack/react-query";
 import Sidebar from "@/components/SideBar/Sidebar";
 import CheckboxGroup from "@/components/CheckBox/CheckBoxGroup";
 import {ProductServices} from "@/services/productServices";
-import {useLocation} from "react-router-dom";
 import ProductCard from "@/components/Cards/ProductCard";
 import {CategoryServices} from "@/services/categoryServices";
 import Spinner from "@/components/Spinner/Spinner";
