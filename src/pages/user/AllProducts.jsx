@@ -88,7 +88,7 @@ const AllProducts = ({isOpen, toggleSidebar}) => {
 
   const totalProducts = productsData?.count || 0;
   const productsPerPage = productsData?.results.length || 0;
-  const totalPages = Math.ceil(totalProducts / 3);
+  const totalPages = Math.ceil(totalProducts / 4);
 
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
