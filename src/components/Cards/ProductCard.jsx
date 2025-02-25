@@ -57,17 +57,23 @@ const ProductCard = ({product}) => {
             images.find((img) => img.is_main)?.image || images[0]?.image || ""
           }
           alt={name}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 aspect-[4/5]"
         />
       </div>
       <div className="p-4">
-        <h3 className={`mb-1 text-lg font-semibold ${isBase ? "text-black": "text-gray-500"}`}>{name}</h3>
+        <h3
+          className={`mb-1 text-lg truncate font-semibold ${
+            isBase ? "text-black" : "text-gray-500"
+          }`}
+        >
+          {name}
+        </h3>
         <div className="mb-2 text-xl font-bold text-gray-900">
           ₹{price.toLocaleString()}
         </div>
 
-        <div className="mb-4 min-h-[28px]">
-          <div className="flex flex-wrap gap-2">
+        <div className="mb-4 overflow-x-auto">
+          <div className="flex gap-2 min-w-max">
             {sizes?.map((size) => (
               <Badge key={size.size} disabled={size.quantity < 1}>
                 {size.size}
@@ -75,19 +81,17 @@ const ProductCard = ({product}) => {
             ))}
           </div>
         </div>
-
-        <div className="flex items-center justify-between">
+        
+        <div className="flex items-center gap-3 justify-end">
           <Button
             className={`flex items-center gap-2 ${
               isBase ? "bg-orange-500" : "bg-blue-800"
             } `}
           >
-            <ShoppingCart className="h-4 w-4" />
-            Add to Cart
+            <ShoppingCart className="h-4 w-4 " />
           </Button>
           <Button variant="outline" size="icon">
             <Heart className="h-4 w-4" />
-            <span className="sr-only">Add to wishlist</span>
           </Button>
         </div>
       </div>
