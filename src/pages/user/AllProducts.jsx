@@ -112,7 +112,7 @@ const AllProducts = ({isOpen, toggleSidebar}) => {
       </Sidebar>
 
       {/* Main content */}
-      <div className="lg:ml-72 w-full p-2">
+      <div className="lg:ml-72 w-full p-2 pb-20">
         {/* Search and Product Count per page */}
         <div className="mb-4 flex justify-between items-center sticky top-[66px] lg:top-[72px] px-1 py-3 z-30 bg-white">
           <input
@@ -143,7 +143,7 @@ const AllProducts = ({isOpen, toggleSidebar}) => {
 
         {/* Pagination Controls */}
         {totalPages > 1 && (
-          <div className="flex justify-center mt-6 space-x-3">
+          <div className="flex justify-center mt-4 space-x-3">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}

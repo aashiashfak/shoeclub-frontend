@@ -9,7 +9,7 @@ const UserRoutes = () => {
     <>
       <Navbar />
       {/* Main Content */}
-      <div className="pb-14">
+      <div className="">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<AllProducts />} />
