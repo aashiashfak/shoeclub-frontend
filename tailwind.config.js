@@ -10,6 +10,9 @@ module.exports = {
         "theme-gradient-hover":
           "linear-gradient(to right, #006978, #00a0b1, #00b8d3)",
       },
+      boxShadow:{
+        "theme-box-shadow":"9px 5px 10px #dfe3ea, -5px -5px 10px #faffff",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

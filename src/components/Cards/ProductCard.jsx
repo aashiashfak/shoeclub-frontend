@@ -48,7 +48,7 @@ const ProductCard = ({product}) => {
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-lg shadow-md transition-all hover:shadow-lg
+      className={`group relative overflow-hidden rounded-lg shadow-md transition-all hover:shadow-theme-box-shadow
         ${isBase ? "bg-white text-gray-700" : "bg-gray-200 "}`}
     >
       <div className="relative h-48 w-full">

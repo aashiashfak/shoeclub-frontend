@@ -2,7 +2,7 @@ import BackButton from "@/components/Buttons/BackButton";
 import {InputOTPControlled} from "@/components/Forms/OtpComponent";
 import SignInForm from "@/components/Forms/SignInForm";
 import {setUser} from "@/redux/Slices/AuthSlice";
-import {instance} from "@/utils/axios";
+import {noAuthInstance} from "@/utils/axios";
 import useToastNotification from "@/hooks/SonnerToast";
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -23,7 +23,7 @@ const SignIn = () => {
     setEmail(values.email);
     setLoading(true);
     try {
-      const response = await instance.post("/accounts/sign-in/", {
+      const response = await noAuthInstance.post("/accounts/sign-in/", {
         email: values.email,
       });
       setExpiryTime();
@@ -44,7 +44,7 @@ const SignIn = () => {
   const verifyAndLogin = async () => {
     try {
       setLoading(true);
-      const response = await instance.post("/accounts/verify-otp/", {
+      const response = await noAuthInstance.post("/accounts/verify-otp/", {
         email: email,
         otp: otp,
       });

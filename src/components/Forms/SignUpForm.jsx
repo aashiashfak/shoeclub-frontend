@@ -3,7 +3,7 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {Button} from "../ui/button";
 import useToastNotification from "@/hooks/SonnerToast";
-import { instance } from "@/utils/axios";
+import { noAuthInstance } from "@/utils/axios";
 
 const SignUpForm = ({setUserData, setIsOTPsent}) => {
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ const SignUpForm = ({setUserData, setIsOTPsent}) => {
     onSubmit: async (values, {setErrors}) => {
       try {
         setLoading(true);
-        const response = await instance.post("accounts/sign-up/", {
+        const response = await noAuthInstance.post("accounts/sign-up/", {
           email: values.email,
         });
         showToast(response?.data?.message || "OTP sent", "success");

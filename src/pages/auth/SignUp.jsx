@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import SignUpForm from "@/components/Forms/SignUpForm";
 import {InputOTPControlled} from "@/components/Forms/OtpComponent";
-import { instance } from "@/utils/axios";
+import { noAuthInstance } from "@/utils/axios";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setUser} from "@/redux/Slices/AuthSlice";
@@ -28,7 +28,7 @@ const SignUp = () => {
         otp: otp,
         role:'User'
       };
-      const response = await instance.post(
+      const response = await noAuthInstance.post(
         "/accounts/sign-up/verify-otp/",
         updatedData
       );

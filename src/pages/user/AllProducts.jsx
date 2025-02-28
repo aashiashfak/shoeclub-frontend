@@ -6,6 +6,7 @@ import {ProductServices} from "@/services/productServices";
 import ProductCard from "@/components/Cards/ProductCard";
 import {CategoryServices} from "@/services/categoryServices";
 import Spinner from "@/components/Spinner/Spinner";
+import {ChevronLeft, ChevronRight} from "lucide-react";
 
 const AllProducts = ({isOpen, toggleSidebar}) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -147,27 +148,27 @@ const AllProducts = ({isOpen, toggleSidebar}) => {
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className={`px-4 py-2 border rounded-lg ${
+              className={`px-4 py-2 border rounded-lg shadow-theme-box-shadow ${
                 currentPage === 1
                   ? "text-gray-400"
                   : "text-black hover:bg-gray-200"
               }`}
             >
-              Previous
+              <ChevronLeft />
             </button>
-            <span className="px-4 py-2 border rounded-lg bg-gray-100">
-              {currentPage} / {totalPages}
+            <span className="px-4 py-2 border rounded-lg bg-gray-100 shadow-theme-box-shadow text-gray-500">
+              <span className="text-black">{currentPage}</span> / {totalPages}
             </span>
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className={`px-4 py-2 border rounded-lg ${
+              className={`px-4 py-2 border rounded-lg shadow-theme-box-shadow ${
                 currentPage === totalPages
                   ? "text-gray-400"
                   : "text-black hover:bg-gray-200"
               }`}
             >
-              Next
+              <ChevronRight />
             </button>
           </div>
         )}
