@@ -1,4 +1,7 @@
 import {Heart, ShoppingCart} from "lucide-react";
+import NoAuth from "../Modals/NoAuth"
+import {useState} from "react";
+import {useSelector} from "react-redux";
 
 const Button = ({children, className, variant = "primary", size, ...props}) => {
   const baseClasses = "font-semibold rounded-lg transition-colors";
@@ -43,6 +46,16 @@ const Badge = ({children, className, disabled, ...props}) => {
 
 const ProductCard = ({product}) => {
   const {name, price, images, sizes, design_type} = product;
+  const [showNoAuth, setShowNoAuth] = useState(false);
+  const user = useSelector((state) => state.userAuth.isAuthenticated);
+
+  const checkAuth = () => {
+    console.log("cheking user", user)
+    if (!user) {
+      setShowNoAuth(true)
+      return
+    }
+  };
 
   const isBase = design_type === "basic";
 
@@ -81,7 +94,7 @@ const ProductCard = ({product}) => {
             ))}
           </div>
         </div>
-        
+
         <div className="flex items-center gap-3 justify-end">
           <Button
             className={`flex items-center gap-2 ${
@@ -90,10 +103,11 @@ const ProductCard = ({product}) => {
           >
             <ShoppingCart className="h-4 w-4 " />
           </Button>
-          <Button variant="outline" size="icon">
-            <Heart className="h-4 w-4" />
+          <Button variant="outline" size="icon" className="hover:shadow-lg">
+            <Heart className="h-4 w-4" onClick={checkAuth} />
           </Button>
         </div>
+        {showNoAuth && <NoAuth onClose={() => setShowNoAuth(false)} />}
       </div>
     </div>
   );
